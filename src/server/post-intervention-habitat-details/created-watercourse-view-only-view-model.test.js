@@ -13,7 +13,8 @@ describe('buildCreatedWatercourseViewOnlyViewModel', () => {
       sizeMetres: 500,
       units: 3.5,
       retentionCategory: 'Created',
-      baseline: { condition: '6. N/A' },
+      // Created habitats have no baseline feature, so there is no baseline
+      // side at all — not even an empty object.
       proposed: {
         type: 'Ditches',
         condition: 'Moderate',

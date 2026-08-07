@@ -28,7 +28,8 @@ describe('#postInterventionHabitatDetailsController created area', () => {
     mockSectionAreaFeature({
       ref: 'Habitat P-A1',
       retentionCategory: '1. Created',
-      baseline: { condition: '6. N/A - Other' },
+      // Created habitats have no baseline feature, so there is no baseline
+      // condition to show.
       projectName: 'Project name',
       proposed: {
         broadType: 'Urban',
@@ -65,7 +66,7 @@ describe('#postInterventionHabitatDetailsController created area', () => {
         strategicSignificanceDisplay: 'Low (1)',
         habitatUnitsDisplay: '0.00',
         targetConditionDisplay: 'N/A - Other (0)',
-        standardTimeToTargetDisplay: `N/A - Other to N/A - Other - 0${STANDARD_TIME_TO_TARGET_SUFFIX}`,
+        standardTimeToTargetDisplay: `N/A to N/A - Other - 0${STANDARD_TIME_TO_TARGET_SUFFIX}`,
         standardDifficultyDisplay: 'Medium',
         advanceOrDelayDisplay: 'Advance – 0 years',
         finalTimeToTargetDisplay: '0 years (0)',

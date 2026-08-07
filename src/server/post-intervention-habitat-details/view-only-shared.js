@@ -15,6 +15,7 @@ import {
 import { stripConditionPrefix } from '../common/helpers/strip-condition-prefix.js'
 import {
   HABITAT_UNITS_DELIVERED_LABEL,
+  NO_BASELINE_CONDITION,
   PI_DETAILS_HEADING,
   STANDARD_TIME_TO_TARGET_SUFFIX,
   TIME_DIFFICULTY_SECTION_HEADING
@@ -75,6 +76,30 @@ export function displayText(value) {
 }
 
 /**
+ * Strip a numeric condition prefix and always return a string (never an
+ * object), so callers can safely interpolate the result into templates.
+ *
+ * @param {unknown} value
+ * @returns {string}
+ */
+function conditionDisplayText(value) {
+  const text = displayText(value)
+  if (!text) {
+    return EMPTY_PLACEHOLDER
+  }
+  const stripped = stripConditionPrefix(text)
+  if (typeof stripped === 'string') {
+    return stripped
+  }
+  return EMPTY_PLACEHOLDER
+}
+
+/**
+ * Created habitats have no baseline feature, so `baselineCondition` is
+ * genuinely absent rather than blank by mistake — the row still renders,
+ * with the baseline part shown as "N/A", as long as the target condition and
+ * years to target are both known.
+ *
  * @param {unknown} baselineCondition
  * @param {unknown} targetCondition
  * @param {unknown} value
@@ -85,16 +110,11 @@ export function formatStandardTimeToTarget(
   targetCondition,
   value
 ) {
-  const baseline = stripConditionPrefix(displayText(baselineCondition))
-  const target = stripConditionPrefix(displayText(targetCondition))
+  const baseline =
+    conditionDisplayText(baselineCondition) || NO_BASELINE_CONDITION
+  const target = conditionDisplayText(targetCondition)
   const years = displayText(value)
-  if (
-    typeof baseline === 'string' &&
-    typeof target === 'string' &&
-    baseline &&
-    target &&
-    years
-  ) {
+  if (target && years) {
     return `${baseline} to ${target} - ${years}${STANDARD_TIME_TO_TARGET_SUFFIX}`
   } else {
     return EMPTY_PLACEHOLDER

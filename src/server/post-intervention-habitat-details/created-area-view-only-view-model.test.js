@@ -13,7 +13,8 @@ describe('buildCreatedAreaViewOnlyViewModel', () => {
       sizeSquareMetres: 0,
       units: 0,
       retentionCategory: 'Created',
-      baseline: { condition: '6. N/A - Other' },
+      // Created habitats have no baseline feature, so there is no baseline
+      // side at all — not even an empty object.
       proposed: {
         broadType: 'Urban',
         type: 'Developed land; sealed surface',
@@ -53,7 +54,7 @@ describe('buildCreatedAreaViewOnlyViewModel', () => {
       viewBaselineHref: `/baseline-habitat-details?featureId=${baselineFeatureId}&projectId=${projectId}`,
       backHref: `/projects/${projectId}/post-intervention-habitat-list#area-habitats`,
       targetConditionDisplay: 'N/A - Other (0)',
-      standardTimeToTargetDisplay: `N/A - Other to N/A - Other - 0${STANDARD_TIME_TO_TARGET_SUFFIX}`,
+      standardTimeToTargetDisplay: `N/A to N/A - Other - 0${STANDARD_TIME_TO_TARGET_SUFFIX}`,
       standardDifficultyDisplay: 'Medium',
       advanceOrDelayDisplay: 'Advance – 0 years',
       finalTimeToTargetDisplay: '0 years (0)',

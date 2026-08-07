@@ -28,7 +28,8 @@ describe('#postInterventionHabitatDetailsController created watercourse', () => 
     mockSectionWatercourseFeature({
       ref: 'W-A1',
       retentionCategory: '1. Created',
-      baseline: { condition: '6. N/A' },
+      // Created habitats have no baseline feature, so there is no baseline
+      // condition to show.
       projectName: 'Project name',
       sizeMetres: 500,
       units: 3.5,

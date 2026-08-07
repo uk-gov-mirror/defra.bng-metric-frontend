@@ -61,8 +61,22 @@ describe('formatStandardTimeToTarget', () => {
     )
   })
 
-  it('returns empty when a condition or years are absent', () => {
-    expect(formatStandardTimeToTarget(null, 'Moderate', 10)).toBe('')
+  it('shows "N/A" for the baseline when there is no baseline feature', () => {
+    // Created habitats have no baseline feature at all, so the baseline
+    // condition is genuinely absent — the row should still render with the
+    // target condition and years to target filled in.
+    expect(formatStandardTimeToTarget(null, 'Moderate', 10)).toBe(
+      'N/A to Moderate - 10 years'
+    )
+    expect(formatStandardTimeToTarget(undefined, 'Moderate', 10)).toBe(
+      'N/A to Moderate - 10 years'
+    )
+    expect(formatStandardTimeToTarget('', 'Moderate', 10)).toBe(
+      'N/A to Moderate - 10 years'
+    )
+  })
+
+  it('returns empty when the target condition or years are absent', () => {
     expect(formatStandardTimeToTarget('Poor', null, 10)).toBe('')
     expect(formatStandardTimeToTarget('Poor', 'Moderate', null)).toBe('')
     expect(formatStandardTimeToTarget('Poor', 'Moderate', '')).toBe('')
